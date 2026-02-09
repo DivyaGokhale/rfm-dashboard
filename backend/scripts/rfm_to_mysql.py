@@ -16,7 +16,7 @@ DB_NAME = os.getenv("DB_NAME")
 
 df = pd.read_csv(FILE_PATH)
 
-# 🔑 STANDARDIZE COLUMN NAMES
+#STANDARDIZED COLUMN NAMES
 df.columns = df.columns.str.lower()
 
 engine = create_engine(
@@ -37,4 +37,4 @@ df[[
     index=False
 )
 
-print("✅ RFM analysis stored in MySQL")
+print("RFM analysis stored in MySQL")

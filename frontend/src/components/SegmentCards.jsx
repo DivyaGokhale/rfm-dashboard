@@ -1,24 +1,37 @@
-import React, { useEffect, useState } from "react";
-import { getSegments } from "../api";
+import React, { useState } from "react";
 
-const SegmentCards = () => {
-  const [segments, setSegments] = useState({});
+const segments = [
+  "Champions",
+  "Loyal Customers",
+  "Potential Loyalists",
+  "At Risk",
+  "Others"
+];
 
-  useEffect(() => {
-    getSegments().then(setSegments);
-  }, []);
+const SegmentCards = ({ onSelectSegment }) => {
+  const [active, setActive] = useState("Champions");
+
+  const handleClick = (segment) => {
+    setActive(segment);
+    onSelectSegment && onSelectSegment(segment);
+  };
 
   return (
-    <div style={{ display: "flex", gap: "20px" }}>
-      {Object.entries(segments).map(([segment, count]) => (
-        <div key={segment} style={{
-          padding: "20px",
-          border: "1px solid #ccc",
-          borderRadius: "8px",
-          minWidth: "150px"
-        }}>
-          <h3>{segment}</h3>
-          <p>{count} customers</p>
+    <div style={{ display: "flex", gap: "15px", flexWrap: "wrap" }}>
+      {segments.map((segment) => (
+        <div
+          key={segment}
+          onClick={() => handleClick(segment)}
+          style={{
+            padding: "15px 20px",
+            borderRadius: "8px",
+            cursor: "pointer",
+            backgroundColor: active === segment ? "#2563eb" : "#f1f5f9",
+            color: active === segment ? "white" : "black",
+            fontWeight: "600",
+          }}
+        >
+          {segment}
         </div>
       ))}
     </div>

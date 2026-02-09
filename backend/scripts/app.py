@@ -6,9 +6,6 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-# -----------------------------
-# PATH FIX (IMPORTANT)
-# -----------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))     # scripts/
 PROJECT_DIR = os.path.dirname(BASE_DIR)                   # rfm-project/
 DATA_DIR = os.path.join(PROJECT_DIR, "data")
@@ -19,9 +16,8 @@ print("Loading file from:", FILE_PATH)
 
 rfm = pd.read_csv(FILE_PATH)
 
-# -----------------------------
+
 # ROUTES
-# -----------------------------
 @app.route("/customers")
 def customers():
     return jsonify(rfm.to_dict(orient="records"))

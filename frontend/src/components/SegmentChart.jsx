@@ -1,26 +1,44 @@
 import React, { useEffect, useState } from "react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
 import { getSegments } from "../api";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 const SegmentChart = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    getSegments().then((segments) => {
-      const formatted = Object.entries(segments).map(
-        ([name, value]) => ({ name, value })
+    getSegments().then((res) => {
+      const counts = {};
+
+      res.forEach((c) => {
+        counts[c.Segment] = (counts[c.Segment] || 0) + 1;
+      });
+
+      const formatted = Object.entries(counts).map(
+        ([segment, count]) => ({ segment, count })
       );
+
       setData(formatted);
     });
   }, []);
 
   return (
-    <BarChart width={600} height={300} data={data}>
-      <XAxis dataKey="name" />
-      <YAxis />
-      <Tooltip />
-      <Bar dataKey="value" />
-    </BarChart>
+    <div style={{ width: "100%", height: 300 }}>
+      <ResponsiveContainer>
+        <BarChart data={data}>
+          <XAxis dataKey="segment" />
+          <YAxis />
+          <Tooltip />
+          <Bar dataKey="count" fill="#2563eb" />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
   );
 };
 

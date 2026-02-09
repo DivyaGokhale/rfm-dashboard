@@ -8,9 +8,7 @@ FILE_PATH = os.path.join(DATA_DIR, "rfm_segmented.csv")
 
 rfm = pd.read_csv(FILE_PATH)
 
-# -----------------------------
 # SEGMENT DISTRIBUTION
-# -----------------------------
 segment_counts = rfm["Segment"].value_counts()
 
 plt.figure()

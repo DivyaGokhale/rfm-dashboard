@@ -15,7 +15,6 @@ def assign_segment(R: int, F: int, M: int) -> str:
         return "Others"
 
 
-# -------------------- SCRIPT MODE --------------------
 if __name__ == "__main__":
     print(assign_segment(5, 5, 5))   # Champions
     print(assign_segment(1, 2, 2))   # At Risk
